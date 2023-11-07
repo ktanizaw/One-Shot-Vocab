@@ -1,4 +1,11 @@
+.vocabularyContainer {
+  width: 100%;
+  margin: 20px;
+}
+
 .searchField {
   display: flex;
   gap: 0.5rem;
+  width: 800px;
+  margin: 0 auto;
 }

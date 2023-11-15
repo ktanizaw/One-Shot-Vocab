@@ -1,11 +1,5 @@
-.vocabularyContainer {
-  width: 100%;
-  margin: 20px;
-}
-
-.searchField {
-  display: flex;
-  gap: 0.5rem;
-  width: 800px;
-  margin: 0 auto;
+.image {
+  height: 220px;
+  width: 240px;
+  border: 1px solid #e2e8f0;
 }

@@ -1,17 +1,21 @@
 "use client";
 
 import { Text, Input, Select, HStack } from "@chakra-ui/react";
-import { useState } from "react";
 
-export default function Header() {
-  const [profession, setProfession] = useState("");
-  const [selectedLevel, setSelectedLevel] = useState("");
+interface HeaderProps {
+  profession: string;
+  setProfession: React.Dispatch<React.SetStateAction<string>>;
+  englishLevel: string;
+  setEnglishLevel: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+const Header: React.FC<HeaderProps> = ({ profession, setProfession, englishLevel,setEnglishLevel }) => {
+
+  const handleProfessionChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setProfession(event.target.value);
 
-  const handleLevelChange = (value: string) => {
-    setSelectedLevel(value);
+  const handleEnglishLevelChange = (value: string) => {
+    setEnglishLevel(value);
   };
 
   return (
@@ -28,7 +32,7 @@ export default function Header() {
           <Text as="b">Profession:</Text>
           <Input
             value={profession}
-            onChange={handleChange}
+            onChange={handleProfessionChange}
             placeholder="職種を入力してください。"
             bg="white"
             boxShadow="base"
@@ -37,8 +41,8 @@ export default function Header() {
         <HStack>
           <Text as="b">Level:</Text>
           <Select 
-          value={selectedLevel}
-          onChange={(e) => handleLevelChange(e.target.value)}
+          value={englishLevel}
+          onChange={(e) => handleEnglishLevelChange(e.target.value)}
           placeholder="Level"
           bg="white"
           boxShadow="base"
@@ -55,3 +59,5 @@ export default function Header() {
     </HStack>
   );
 }
+
+export default Header;

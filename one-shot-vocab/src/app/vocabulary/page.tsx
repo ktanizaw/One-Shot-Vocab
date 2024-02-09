@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Input,
   IconButton,
@@ -16,11 +16,22 @@ import axios from "axios";
 import { customsearch_v1 } from "googleapis";
 import Header from "@/app/common/header";
 import WordDetailsCard from "@/app/vocabulary/wordDetailsCard";
+import ChatgptCard from "@/app/vocabulary/chatgptCard";
 
 export default function Vocabulary() {
+  const [profession, setProfession] = useState("");
+  const [englishLevel, setEnglishLevel] = useState("C2");
   const [englishWord, setEnglishWord] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const [wordDetails, setWordDetails] = useState<any>(null);
+  const [prompt, setPrompt] = useState("");
+  useEffect(() => {
+    const initialPrompt = `You are a ${profession}.\nGive me 5 affirmative sentences and 5 question sentences with a vocabulary "${englishWord}" within 10 words in English, by only using vocabularies up to ${englishLevel} level.`;
+    setPrompt(initialPrompt);
+  }, [profession, englishWord, englishLevel]);
+
+  const [chatGptAnswer, setChatGptAnswer] = useState("");
+  const [mockChatGPTResponse, setMockChatGPTResponse] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setEnglishWord(event.target.value);
@@ -37,6 +48,9 @@ export default function Vocabulary() {
 
     // Step 2: Get word details using WordsAPI
     await getWordDetails();
+
+    // Step 3: Get example sentences using ChatGPT API
+    await getChatgptText();
   };
 
   const getImages = async () => {
@@ -55,7 +69,7 @@ export default function Vocabulary() {
       const imageUrls = items.map((item) => item.link || "");
       setImages(imageUrls);
     } catch (error) {
-      console.error("データの取得中にエラーが発生しました:", error);
+      console.error("error", error);
     }
   };
 
@@ -77,13 +91,46 @@ export default function Vocabulary() {
       const details = response.data;
       setWordDetails(details);
     } catch (error) {
-      console.error("データの取得中にエラーが発生しました:", error);
+      console.error("error", error);
+    }
+  };
+
+  const getChatgptText = async () => {
+    try {
+      setMockChatGPTResponse(
+        "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?"
+      );
+      // const queryParams = new URLSearchParams({ prompt });
+      // const url = `/api/openai?${queryParams}`;
+      // const response = await fetch(url);
+      // const response = await fetch("/api/openai", {
+      //   method: "GET",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ prompt }),
+      // });
+      // const queryParams = new URLSearchParams({ prompt });
+      // const url = `/api/openai?${queryParams}`;
+      // const response = await fetch(url, {
+      //   method: "GET",
+      //   headers: { "Content-Type": "application/json" },
+      // });
+      const test = "tell me your name";
+      const response = await axios.get("/api/openai/", { params: { test } });
+      setChatGptAnswer(response.data.data);
+      console.info("OpenAI Text Generation Response:", response.data.data);
+    } catch (error) {
+      console.error("OpenAI Text Generation Error:", error);
     }
   };
 
   return (
     <Box>
-      <Header />
+      <Header
+        profession={profession}
+        setProfession={setProfession}
+        englishLevel={englishLevel}
+        setEnglishLevel={setEnglishLevel}
+      />
       <Center p={4}>
         <HStack w={800}>
           <Input
@@ -115,7 +162,7 @@ export default function Vocabulary() {
       </Center>
 
       <WordDetailsCard englishWord={englishWord} wordDetails={wordDetails} />
-
+      <ChatgptCard prompt={prompt} text={mockChatGPTResponse} />
     </Box>
   );
 }

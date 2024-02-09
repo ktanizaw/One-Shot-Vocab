@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'"
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
+    "debug": "NODE_OPTIONS='--inspect' next dev"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
@@ -16,9 +17,11 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "axios": "^1.6.1",
+    "consola": "^3.2.3",
     "framer-motion": "^10.16.4",
     "googleapis": "^128.0.0",
     "next": "14.0.1",
+    "openai": "^4.20.1",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -30,6 +33,7 @@
     "eslint-config-next": "14.0.1",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

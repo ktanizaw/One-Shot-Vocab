@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ profession, setProfession, englishLevel
           />
         </HStack>
         <HStack>
-          <Text as="b">Level:</Text>
+          <Text as="b">EnglishLevel:</Text>
           <Select 
           value={englishLevel}
           onChange={(e) => handleEnglishLevelChange(e.target.value)}

@@ -25,6 +25,8 @@ export default function Vocabulary() {
   const [images, setImages] = useState<string[]>([]);
   const [wordDetails, setWordDetails] = useState<any>(null);
   const [prompt, setPrompt] = useState("");
+  const isDisabled = !profession || !englishWord || !englishLevel;
+
   useEffect(() => {
     const initialPrompt = `You are a ${profession}.\nGive me 5 affirmative sentences and 5 question sentences with a vocabulary "${englishWord}" within 10 words in English, by only using vocabularies up to ${englishLevel} level.`;
     setPrompt(initialPrompt);
@@ -37,6 +39,10 @@ export default function Vocabulary() {
     setEnglishWord(event.target.value);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (isDisabled) {
+      return;
+    }
+
     if (event.key === "Enter") {
       searchEnglishWord();
     }
@@ -51,6 +57,8 @@ export default function Vocabulary() {
 
     // Step 3: Get example sentences using ChatGPT API
     await getChatgptText();
+
+    await getPlayPhraseMe();
   };
 
   const getImages = async () => {
@@ -97,15 +105,32 @@ export default function Vocabulary() {
 
   const getChatgptText = async () => {
     try {
-      // setMockChatGPTResponse(
-      //   "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?"
-      // );
-      const response = await axios.get("/api/openai/", { params: { prompt } });
-      setChatGptAnswer(response.data.data);
-      console.info("OpenAI Text Generation Response:", response.data.data);
+      setMockChatGPTResponse(
+        "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?"
+      );
+      // const response = await axios.get("/api/openai/", { params: { prompt } });
+      // setChatGptAnswer(response.data.data);
+      // console.info("OpenAI Text Generation Response:", response.data.data);
     } catch (error) {
       console.error("OpenAI Text Generation Error:", error);
     }
+  };
+
+  const getPlayPhraseMe = async () => {
+    const query = convertToSearchQuery(englishWord);
+    try {
+      const response = await axios.get(
+        `https://www.playphrase.me/api/v1/phrases/search?q=${query}`
+      );
+      console.log(response);
+    } catch (e) {
+      console.error("OpenAI Text Generation Error:", e);
+    }
+  };
+
+  const convertToSearchQuery = (inputString: string) => {
+    const convertedString = inputString.replace(/ /g, "+");
+    return convertedString;
   };
 
   return (
@@ -123,10 +148,12 @@ export default function Vocabulary() {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="英単語を入力してください。"
+            pattern="[A-Za-z0-9]*"
           />
           <IconButton
             aria-label="SearchIcon"
             icon={<SearchIcon />}
+            isDisabled={isDisabled}
             onClick={searchEnglishWord}
           />
         </HStack>
@@ -147,7 +174,10 @@ export default function Vocabulary() {
       </Center>
 
       <WordDetailsCard englishWord={englishWord} wordDetails={wordDetails} />
-      <ChatgptCard prompt={prompt} text={chatGptAnswer} />
+      <ChatgptCard
+        prompt={prompt}
+        text={mockChatGPTResponse ? mockChatGPTResponse : chatGptAnswer}
+      />
     </Box>
   );
 }

@@ -97,25 +97,10 @@ export default function Vocabulary() {
 
   const getChatgptText = async () => {
     try {
-      setMockChatGPTResponse(
-        "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?"
-      );
-      // const queryParams = new URLSearchParams({ prompt });
-      // const url = `/api/openai?${queryParams}`;
-      // const response = await fetch(url);
-      // const response = await fetch("/api/openai", {
-      //   method: "GET",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ prompt }),
-      // });
-      // const queryParams = new URLSearchParams({ prompt });
-      // const url = `/api/openai?${queryParams}`;
-      // const response = await fetch(url, {
-      //   method: "GET",
-      //   headers: { "Content-Type": "application/json" },
-      // });
-      const test = "tell me your name";
-      const response = await axios.get("/api/openai/", { params: { test } });
+      // setMockChatGPTResponse(
+      //   "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?"
+      // );
+      const response = await axios.get("/api/openai/", { params: { prompt } });
       setChatGptAnswer(response.data.data);
       console.info("OpenAI Text Generation Response:", response.data.data);
     } catch (error) {
@@ -162,7 +147,7 @@ export default function Vocabulary() {
       </Center>
 
       <WordDetailsCard englishWord={englishWord} wordDetails={wordDetails} />
-      <ChatgptCard prompt={prompt} text={mockChatGPTResponse} />
+      <ChatgptCard prompt={prompt} text={chatGptAnswer} />
     </Box>
   );
 }

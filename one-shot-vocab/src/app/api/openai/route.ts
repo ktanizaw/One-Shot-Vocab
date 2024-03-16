@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getChatgptAnswer } from "@/services/openai";
+import { NextRequest, NextResponse } from 'next/server';
+import { getChatgptAnswer } from '@/services/openai';
 
 export async function GET(req: NextRequest) {
-  const prompt = req.nextUrl.searchParams.get("prompt");
+  const prompt = req.nextUrl.searchParams.get('prompt');
   try {
     if (!prompt) {
       return;
@@ -10,16 +10,16 @@ export async function GET(req: NextRequest) {
     const data = await getChatgptAnswer(prompt);
 
     if (data !== null) {
-      console.log("Received response:", data);
+      console.log('Received response:', data);
     } else {
-      console.log("Received empty response from OpenAI");
+      console.log('Received empty response from OpenAI');
     }
     return NextResponse.json({ data });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error);
     return NextResponse.json(
-      { error: "Failed to fetch data" },
-      { status: 500 }
+      { error: 'Failed to fetch data' },
+      { status: 500 },
     );
   }
 }

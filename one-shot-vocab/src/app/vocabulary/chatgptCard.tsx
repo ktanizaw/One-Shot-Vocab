@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Box,
   Divider,
@@ -7,7 +7,7 @@ import {
   Text,
   HStack,
   Tag,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 interface ChatgptCardProps {
   prompt: string;
@@ -25,7 +25,7 @@ const ChatgptCard: React.FC<ChatgptCardProps> = ({ prompt, text }) => {
         <Tag mb="4" size="lg" key="lg" variant="solid" colorScheme="teal">
           AI生成例文
         </Tag>
-        <Box maxW={{ base: "100%", md: "800px" }}>
+        <Box maxW={{ base: '100%', md: '800px' }}>
           <HStack spacing={4}>
             <Box>
               <Avatar src="/face.svg" />

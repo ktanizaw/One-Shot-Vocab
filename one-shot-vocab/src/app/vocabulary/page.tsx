@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import styles from "./page.module.css";
-import { useState, useEffect } from "react";
+import styles from './page.module.css';
+import { useState, useEffect } from 'react';
 import {
   Input,
   IconButton,
@@ -10,21 +10,21 @@ import {
   WrapItem,
   HStack,
   Center,
-} from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
-import axios from "axios";
-import { customsearch_v1 } from "googleapis";
-import Header from "@/app/common/header";
-import WordDetailsCard from "@/app/vocabulary/wordDetailsCard";
-import ChatgptCard from "@/app/vocabulary/chatgptCard";
+} from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
+import axios from 'axios';
+import { customsearch_v1 } from 'googleapis';
+import Header from '@/app/common/header';
+import WordDetailsCard from '@/app/vocabulary/wordDetailsCard';
+import ChatgptCard from '@/app/vocabulary/chatgptCard';
 
 export default function Vocabulary() {
-  const [profession, setProfession] = useState("");
-  const [englishLevel, setEnglishLevel] = useState("C2");
-  const [englishWord, setEnglishWord] = useState("");
+  const [profession, setProfession] = useState('');
+  const [englishLevel, setEnglishLevel] = useState('C2');
+  const [englishWord, setEnglishWord] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const [wordDetails, setWordDetails] = useState<any>(null);
-  const [prompt, setPrompt] = useState("");
+  const [prompt, setPrompt] = useState('');
   const isDisabled = !profession || !englishWord || !englishLevel;
 
   useEffect(() => {
@@ -32,8 +32,8 @@ export default function Vocabulary() {
     setPrompt(initialPrompt);
   }, [profession, englishWord, englishLevel]);
 
-  const [chatGptAnswer, setChatGptAnswer] = useState("");
-  const [mockChatGPTResponse, setMockChatGPTResponse] = useState("");
+  const [chatGptAnswer, setChatGptAnswer] = useState('');
+  const [mockChatGPTResponse, setMockChatGPTResponse] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setEnglishWord(event.target.value);
@@ -43,7 +43,7 @@ export default function Vocabulary() {
       return;
     }
 
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       searchEnglishWord();
     }
   };
@@ -68,16 +68,16 @@ export default function Vocabulary() {
         process.env.NEXT_PUBLIC_CUSTOM_SEARCH_ENGINE_ID;
 
       const response = await axios.get(
-        `https://www.googleapis.com/customsearch/v1?q=${englishWord}&cx=${CUSTOM_SEARCH_ENGINE_ID}&key=${API_KEY}&searchType=image`
+        `https://www.googleapis.com/customsearch/v1?q=${englishWord}&cx=${CUSTOM_SEARCH_ENGINE_ID}&key=${API_KEY}&searchType=image`,
       );
 
       const items = response.data.items as customsearch_v1.Schema$Result[];
-      console.log("customsearch", items);
+      console.log('customsearch', items);
 
-      const imageUrls = items.map((item) => item.link || "");
+      const imageUrls = items.map((item) => item.link || '');
       setImages(imageUrls);
     } catch (error) {
-      console.error("error", error);
+      console.error('error', error);
     }
   };
 
@@ -89,30 +89,30 @@ export default function Vocabulary() {
         `https://wordsapiv1.p.rapidapi.com/words/${englishWord}`,
         {
           headers: {
-            "X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
-            "X-RapidAPI-Key": WORDS_API_KEY,
+            'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com',
+            'X-RapidAPI-Key': WORDS_API_KEY,
           },
-        }
+        },
       );
-      console.log("wordsAPI", response);
+      console.log('wordsAPI', response);
 
       const details = response.data;
       setWordDetails(details);
     } catch (error) {
-      console.error("error", error);
+      console.error('error', error);
     }
   };
 
   const getChatgptText = async () => {
     try {
       setMockChatGPTResponse(
-        "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?"
+        "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?",
       );
       // const response = await axios.get("/api/openai/", { params: { prompt } });
       // setChatGptAnswer(response.data.data);
       // console.info("OpenAI Text Generation Response:", response.data.data);
     } catch (error) {
-      console.error("OpenAI Text Generation Error:", error);
+      console.error('OpenAI Text Generation Error:', error);
     }
   };
 
@@ -120,16 +120,16 @@ export default function Vocabulary() {
     const query = convertToSearchQuery(englishWord);
     try {
       const response = await axios.get(
-        `https://www.playphrase.me/api/v1/phrases/search?q=${query}`
+        `https://www.playphrase.me/api/v1/phrases/search?q=${query}`,
       );
       console.log(response);
     } catch (e) {
-      console.error("OpenAI Text Generation Error:", e);
+      console.error('OpenAI Text Generation Error:', e);
     }
   };
 
   const convertToSearchQuery = (inputString: string) => {
-    const convertedString = inputString.replace(/ /g, "+");
+    const convertedString = inputString.replace(/ /g, '+');
     return convertedString;
   };
 

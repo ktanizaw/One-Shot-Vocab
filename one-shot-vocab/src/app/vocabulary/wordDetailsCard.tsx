@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Center,
@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardBody,
   Heading,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 interface WordDetails {
   pronunciation?: {
@@ -67,7 +67,7 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
                   {result.examples.map((example: string, index: number) => (
                     <Text key={index}>
                       {example}
-                      {index < result?.examples.length - 1 && " | "}
+                      {index < result?.examples.length - 1 && ' | '}
                     </Text>
                   ))}
                 </HStack>
@@ -79,7 +79,7 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
                   {result.synonyms.map((synonym: string, index: number) => (
                     <Text key={index}>
                       {synonym}
-                      {index < result.synonyms.length - 1 && ", "}
+                      {index < result.synonyms.length - 1 && ', '}
                     </Text>
                   ))}
                 </HStack>
@@ -91,7 +91,7 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
                   {result.similarTo.map((similar: string, index: number) => (
                     <Text key={index}>
                       {similar}
-                      {index < result.similarTo.length - 1 && ", "}
+                      {index < result.similarTo.length - 1 && ', '}
                     </Text>
                   ))}
                 </HStack>
@@ -103,7 +103,7 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
                   {result.antonyms.map((antonym: string, index: number) => (
                     <Text key={index}>
                       {antonym}
-                      {index < result.antonyms.length - 1 && ", "}
+                      {index < result.antonyms.length - 1 && ', '}
                     </Text>
                   ))}
                 </HStack>
@@ -116,9 +116,9 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
                     (derivation: string, index: number) => (
                       <Text key={index}>
                         {derivation}
-                        {index < result.derivation.length - 1 && ", "}
+                        {index < result.derivation.length - 1 && ', '}
                       </Text>
-                    )
+                    ),
                   )}
                 </HStack>
               )}

@@ -1,0 +1,11 @@
+@import '../styles/variables.scss';
+
+.image {
+  height: 220px;
+  width: 240px;
+  border: 1px solid #e2e8f0;
+  @media screen and (max-width: $breakpoint-sp) {
+    height: 100px;
+    width: 120px;
+  }
+}

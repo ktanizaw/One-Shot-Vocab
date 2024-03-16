@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './page.module.css';
+import styles from './page.module.scss';
 import { useState, useEffect } from 'react';
 import {
   Input,
@@ -10,13 +10,15 @@ import {
   WrapItem,
   HStack,
   Center,
+  Button,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { customsearch_v1 } from 'googleapis';
-import Header from '@/app/common/header';
-import WordDetailsCard from '@/app/vocabulary/wordDetailsCard';
-import ChatgptCard from '@/app/vocabulary/chatgptCard';
+import Header from '@/app/components/common/header';
+import WordDetailsCard from '@/app/vocabulary/parts/wordDetailsCard';
+import ChatgptCard from '@/app/vocabulary/parts/chatgptCard';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 export default function Vocabulary() {
   const [profession, setProfession] = useState('');
@@ -26,6 +28,7 @@ export default function Vocabulary() {
   const [wordDetails, setWordDetails] = useState<any>(null);
   const [prompt, setPrompt] = useState('');
   const isDisabled = !profession || !englishWord || !englishLevel;
+  const [isShowPlayPhraseButton, setIsShowPlayPhraseButton] = useState(false);
 
   useEffect(() => {
     const initialPrompt = `You are a ${profession}.\nGive me 5 affirmative sentences and 5 question sentences with a vocabulary "${englishWord}" within 10 words in English, by only using vocabularies up to ${englishLevel} level.`;
@@ -49,16 +52,10 @@ export default function Vocabulary() {
   };
 
   const searchEnglishWord = async () => {
-    // Step 1: Search images using Google Custom Search
     await getImages();
-
-    // Step 2: Get word details using WordsAPI
     await getWordDetails();
-
-    // Step 3: Get example sentences using ChatGPT API
     await getChatgptText();
-
-    await getPlayPhraseMe();
+    setIsShowPlayPhraseButton(true)
   };
 
   const getImages = async () => {
@@ -116,21 +113,27 @@ export default function Vocabulary() {
     }
   };
 
-  const getPlayPhraseMe = async () => {
-    const query = convertToSearchQuery(englishWord);
-    try {
-      const response = await axios.get(
-        `https://www.playphrase.me/api/v1/phrases/search?q=${query}`,
-      );
-      console.log(response);
-    } catch (e) {
-      console.error('OpenAI Text Generation Error:', e);
-    }
-  };
+  // const getPlayPhraseMe = async () => {
+  //   const query = convertToSearchQuery(englishWord);
+  //   try {
+  //     const response = await axios.get(
+  //       `https://www.playphrase.me/api/v1/phrases/search?q=${query}`,
+  //     );
+  //     console.log(response);
+  //   } catch (e) {
+  //     console.error('OpenAI Text Generation Error:', e);
+  //   }
+  // };
 
   const convertToSearchQuery = (inputString: string) => {
     const convertedString = inputString.replace(/ /g, '+');
     return convertedString;
+  };
+
+  const toPlayPhraseMe = () => {
+    const query = convertToSearchQuery(englishWord);
+    const playPhraseMeUrl = `https://www.playphrase.me/#/search?q=${query}`;
+    window.open(playPhraseMeUrl, '_blank');
   };
 
   return (
@@ -174,10 +177,22 @@ export default function Vocabulary() {
       </Center>
 
       <WordDetailsCard englishWord={englishWord} wordDetails={wordDetails} />
+
       <ChatgptCard
         prompt={prompt}
         text={mockChatGPTResponse ? mockChatGPTResponse : chatGptAnswer}
       />
+
+      {isShowPlayPhraseButton && (<Center p={4}>
+        <Button
+          rightIcon={<ExternalLinkIcon />}
+          colorScheme="blue"
+          variant="outline"
+          onClick={toPlayPhraseMe}
+        >
+          "{englishWord}"の使い方を動画で確認する
+        </Button>
+      </Center>)}
     </Box>
   );
 }

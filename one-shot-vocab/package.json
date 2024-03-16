@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
+    "format": "prettier --write --ignore-path .gitignore '**/*.{js,ts,tsx,json,css}'",
     "debug": "NODE_OPTIONS='--inspect' next dev"
   },
   "dependencies": {

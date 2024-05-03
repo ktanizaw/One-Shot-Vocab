@@ -6,7 +6,6 @@ import {
   Select,
   HStack,
   VStack,
-  useBreakpoint,
 } from '@chakra-ui/react';
 
 interface HeaderProps {
@@ -29,21 +28,16 @@ const Header: React.FC<HeaderProps> = ({
     setEnglishLevel(value);
   };
 
-  const bp = useBreakpoint();
-
-  console.log(bp);
-
   return (
     <HStack
       as="header"
-      h={20}
+      h={{ base: 32, md: 20 }}
       justify="center"
       borderBottom="1px"
       borderColor="gray.200"
       bg="blue.100"
     >
-      <HStack spacing={20}>
-        <div>{bp}</div>
+      <HStack spacing={20} display={{ base: 'none', md: 'flex' }}>
         <HStack>
           <Text as="b">Profession:</Text>
           <Input
@@ -72,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({
           </Select>
         </HStack>
       </HStack>
-      <VStack align="stretch">
+      <VStack align="stretch" display={{ base: 'flex', md: 'none' }}>
         <HStack>
           <Text as="b">Profession:</Text>
           <Input

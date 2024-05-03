@@ -10,6 +10,8 @@ import {
   CardHeader,
   CardBody,
   Heading,
+  Wrap,
+  WrapItem,
 } from '@chakra-ui/react';
 
 interface WordDetails {
@@ -57,69 +59,91 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
             <Stack key={resultIndex}>
               <Text as="b">{resultIndex + 1}.</Text>
               <HStack>
-                <Text fontSize="sm">意味:</Text>
+                <Text fontSize="sm" minWidth={12}>
+                  意味:
+                </Text>
                 <Text>{result?.definition}</Text>
               </HStack>
 
               {result?.examples && (
                 <HStack>
-                  <Text fontSize="sm">例文:</Text>
+                  <Text fontSize="sm" minWidth={12}>
+                    例文:
+                  </Text>
+                  <Wrap>
                   {result.examples.map((example: string, index: number) => (
-                    <Text key={index}>
+                      <WrapItem key={index}>
                       {example}
                       {index < result?.examples.length - 1 && ' | '}
-                    </Text>
+                      </WrapItem>
                   ))}
+                  </Wrap>
                 </HStack>
               )}
 
               {result?.synonyms && (
                 <HStack>
-                  <Text fontSize="sm">類義語:</Text>
-                  {result.synonyms.map((synonym: string, index: number) => (
-                    <Text key={index}>
-                      {synonym}
-                      {index < result.synonyms.length - 1 && ', '}
-                    </Text>
-                  ))}
+                  <Text fontSize="sm" minWidth={12}>
+                    類義語:
+                  </Text>
+                  <Wrap>
+                    {result.synonyms.map((synonym: string, index: number) => (
+                      <WrapItem key={index}>
+                        {synonym}
+                        {index < result.synonyms.length - 1 && ', '}
+                      </WrapItem>
+                    ))}
+                  </Wrap>
                 </HStack>
               )}
 
               {result?.similarTo && (
                 <HStack>
-                  <Text fontSize="sm">類似語: </Text>
+                  <Text fontSize="sm" minWidth={12}>
+                    類似語:{' '}
+                  </Text>
+                  <Wrap>
                   {result.similarTo.map((similar: string, index: number) => (
-                    <Text key={index}>
+                      <WrapItem key={index}>
                       {similar}
                       {index < result.similarTo.length - 1 && ', '}
-                    </Text>
+                      </WrapItem>
                   ))}
+                  </Wrap>
                 </HStack>
               )}
 
               {result?.antonyms && (
                 <HStack>
-                  <Text fontSize="sm">対義語:</Text>
+                  <Text fontSize="sm" minWidth={12}>
+                    対義語:
+                  </Text>
+                  <Wrap>
                   {result.antonyms.map((antonym: string, index: number) => (
-                    <Text key={index}>
+                      <WrapItem key={index}>
                       {antonym}
                       {index < result.antonyms.length - 1 && ', '}
-                    </Text>
+                      </WrapItem>
                   ))}
+                  </Wrap>
                 </HStack>
               )}
 
               {result?.derivation && (
                 <HStack>
-                  <Text fontSize="sm">派生語:</Text>
+                  <Text fontSize="sm" minWidth={12}>
+                    派生語:
+                  </Text>
+                  <Wrap>
                   {result.derivation.map(
                     (derivation: string, index: number) => (
-                      <Text key={index}>
+                      <WrapItem key={index}>
                         {derivation}
                         {index < result.derivation.length - 1 && ', '}
-                      </Text>
+                        </WrapItem>
                     ),
                   )}
+                  </Wrap>
                 </HStack>
               )}
               <Divider mb={2} />

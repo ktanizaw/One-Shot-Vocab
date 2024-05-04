@@ -1,5 +1,3 @@
-'use client';
-
 import { Text, HStack } from '@chakra-ui/react';
 
 const AppFooter: React.FC = () => {

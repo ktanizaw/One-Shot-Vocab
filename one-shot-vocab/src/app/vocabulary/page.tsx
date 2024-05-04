@@ -21,6 +21,7 @@ import AppFooter from '@/app/components/common/AppFooter';
 import WordDetailsCard from '@/app/vocabulary/parts/WordDetailsCard';
 import ChatgptCard from '@/app/vocabulary/parts/ChatgptCard';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { errorHandling } from '@/app/utils/errorHandling';
 
 export default function Vocabulary() {
   const [profession, setProfession] = useState('');
@@ -62,22 +63,21 @@ export default function Vocabulary() {
   };
 
   const getImages = async () => {
-    try {
+    await errorHandling(
+      async () => {
       const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_SEARCH_API_KEY;
       const CUSTOM_SEARCH_ENGINE_ID =
         process.env.NEXT_PUBLIC_CUSTOM_SEARCH_ENGINE_ID;
 
       const response = await axios.get(
-        `https://www.googleapis.com/customsearch/v1?q=${englishWord}&cx=${CUSTOM_SEARCH_ENGINE_ID}&key=${API_KEY}&searchType=image`,
+        `httaaaps://www.googleapis.com/customsearch/v1?q=${englishWord}&cx=${CUSTOM_SEARCH_ENGINE_ID}&key=${API_KEY}&searchType=image`,
       );
 
       const items = response.data.items as customsearch_v1.Schema$Result[];
 
       const imageUrls = items.map((item) => item.link || '');
       setImages(imageUrls);
-    } catch (e) {
-      throw new Error(e);
-    }
+    })
   };
 
   const getWordDetails = async () => {

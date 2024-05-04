@@ -1,5 +1,3 @@
-'use client';
-
 import { Text, Input, Select, HStack, VStack } from '@chakra-ui/react';
 
 interface AppHeaderProps {

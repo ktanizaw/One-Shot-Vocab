@@ -1,21 +1,15 @@
 'use client';
 
-import {
-  Text,
-  Input,
-  Select,
-  HStack,
-  VStack,
-} from '@chakra-ui/react';
+import { Text, Input, Select, HStack, VStack } from '@chakra-ui/react';
 
-interface HeaderProps {
+interface AppHeaderProps {
   profession: string;
   setProfession: React.Dispatch<React.SetStateAction<string>>;
   englishLevel: string;
   setEnglishLevel: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Header: React.FC<HeaderProps> = ({
+const AppHeader: React.FC<AppHeaderProps> = ({
   profession,
   setProfession,
   englishLevel,
@@ -99,4 +93,4 @@ const Header: React.FC<HeaderProps> = ({
   );
 };
 
-export default Header;
+export default AppHeader;

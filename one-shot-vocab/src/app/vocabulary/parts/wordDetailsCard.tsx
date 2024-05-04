@@ -42,7 +42,7 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
     !wordDetails.results ||
     wordDetails.results.length === 0
   ) {
-    return null; // wordDetails が存在しないか、results プロパティが空の場合は何も表示しない
+    return null;
   }
 
   return (
@@ -71,12 +71,12 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
                     例文:
                   </Text>
                   <Wrap>
-                  {result.examples.map((example: string, index: number) => (
+                    {result.examples.map((example: string, index: number) => (
                       <WrapItem key={index}>
-                      {example}
-                      {index < result?.examples.length - 1 && ' | '}
+                        {example}
+                        {index < result?.examples.length - 1 && ' | '}
                       </WrapItem>
-                  ))}
+                    ))}
                   </Wrap>
                 </HStack>
               )}
@@ -103,12 +103,12 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
                     類似語:{' '}
                   </Text>
                   <Wrap>
-                  {result.similarTo.map((similar: string, index: number) => (
+                    {result.similarTo.map((similar: string, index: number) => (
                       <WrapItem key={index}>
-                      {similar}
-                      {index < result.similarTo.length - 1 && ', '}
+                        {similar}
+                        {index < result.similarTo.length - 1 && ', '}
                       </WrapItem>
-                  ))}
+                    ))}
                   </Wrap>
                 </HStack>
               )}
@@ -119,12 +119,12 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
                     対義語:
                   </Text>
                   <Wrap>
-                  {result.antonyms.map((antonym: string, index: number) => (
+                    {result.antonyms.map((antonym: string, index: number) => (
                       <WrapItem key={index}>
-                      {antonym}
-                      {index < result.antonyms.length - 1 && ', '}
+                        {antonym}
+                        {index < result.antonyms.length - 1 && ', '}
                       </WrapItem>
-                  ))}
+                    ))}
                   </Wrap>
                 </HStack>
               )}
@@ -135,14 +135,14 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
                     派生語:
                   </Text>
                   <Wrap>
-                  {result.derivation.map(
-                    (derivation: string, index: number) => (
-                      <WrapItem key={index}>
-                        {derivation}
-                        {index < result.derivation.length - 1 && ', '}
+                    {result.derivation.map(
+                      (derivation: string, index: number) => (
+                        <WrapItem key={index}>
+                          {derivation}
+                          {index < result.derivation.length - 1 && ', '}
                         </WrapItem>
-                    ),
-                  )}
+                      ),
+                    )}
                   </Wrap>
                 </HStack>
               )}

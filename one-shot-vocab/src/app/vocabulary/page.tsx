@@ -15,9 +15,10 @@ import {
 import { SearchIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { customsearch_v1 } from 'googleapis';
-import Header from '@/app/components/common/header';
-import WordDetailsCard from '@/app/vocabulary/parts/wordDetailsCard';
-import ChatgptCard from '@/app/vocabulary/parts/chatgptCard';
+import AppHeader from '@/app/components/common/AppHeader';
+import AppFooter from '@/app/components/common/AppFooter';
+import WordDetailsCard from '@/app/vocabulary/parts/WordDetailsCard';
+import ChatgptCard from '@/app/vocabulary/parts/ChatgptCard';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 export default function Vocabulary() {
@@ -55,7 +56,7 @@ export default function Vocabulary() {
     await getImages();
     await getWordDetails();
     await getChatgptText();
-    setIsShowPlayPhraseButton(true)
+    setIsShowPlayPhraseButton(true);
   };
 
   const getImages = async () => {
@@ -137,62 +138,67 @@ export default function Vocabulary() {
   };
 
   return (
-    <Box>
-      <Header
+    <Box minHeight="100vh" display="flex" flexDirection="column">
+      <AppHeader
         profession={profession}
         setProfession={setProfession}
         englishLevel={englishLevel}
         setEnglishLevel={setEnglishLevel}
       />
-      <Center p={4}>
-        <HStack w={800}>
-          <Input
-            value={englishWord}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="英単語を入力してください。"
-            pattern="[A-Za-z0-9]*"
-          />
-          <IconButton
-            aria-label="SearchIcon"
-            icon={<SearchIcon />}
-            isDisabled={isDisabled}
-            onClick={searchEnglishWord}
-          />
-        </HStack>
-      </Center>
+      <Box flex={1}>
+        <Center p={4}>
+          <HStack w={800}>
+            <Input
+              value={englishWord}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              placeholder="英単語を入力してください。"
+              pattern="[A-Za-z0-9]*"
+            />
+            <IconButton
+              aria-label="SearchIcon"
+              icon={<SearchIcon />}
+              isDisabled={isDisabled}
+              onClick={searchEnglishWord}
+            />
+          </HStack>
+        </Center>
 
-      <Center p={4}>
-        <Wrap w={1280} justify="center">
-          {images.map((imageUrl, index) => (
-            <WrapItem key={index}>
-              <img
-                src={imageUrl}
-                alt={`画像 ${index}`}
-                className={styles.image}
-              />
-            </WrapItem>
-          ))}
-        </Wrap>
-      </Center>
+        <Center p={4}>
+          <Wrap w={1280} justify="center">
+            {images.map((imageUrl, index) => (
+              <WrapItem key={index}>
+                <img
+                  src={imageUrl}
+                  alt={`画像 ${index}`}
+                  className={styles.image}
+                />
+              </WrapItem>
+            ))}
+          </Wrap>
+        </Center>
 
-      <WordDetailsCard englishWord={englishWord} wordDetails={wordDetails} />
+        <WordDetailsCard englishWord={englishWord} wordDetails={wordDetails} />
 
-      <ChatgptCard
-        prompt={prompt}
-        text={mockChatGPTResponse ? mockChatGPTResponse : chatGptAnswer}
-      />
+        <ChatgptCard
+          prompt={prompt}
+          text={mockChatGPTResponse ? mockChatGPTResponse : chatGptAnswer}
+        />
 
-      {isShowPlayPhraseButton && (<Center p={4}>
-        <Button
-          rightIcon={<ExternalLinkIcon />}
-          colorScheme="blue"
-          variant="outline"
-          onClick={toPlayPhraseMe}
-        >
-          "{englishWord}"の使い方を動画で確認する
-        </Button>
-      </Center>)}
+        {isShowPlayPhraseButton && (
+          <Center p={4}>
+            <Button
+              rightIcon={<ExternalLinkIcon />}
+              colorScheme="blue"
+              variant="outline"
+              onClick={toPlayPhraseMe}
+            >
+              "{englishWord}"の使い方を動画で確認する
+            </Button>
+          </Center>
+        )}
+      </Box>
+      <AppFooter />
     </Box>
   );
 }

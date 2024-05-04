@@ -63,8 +63,7 @@ export default function Vocabulary() {
   };
 
   const getImages = async () => {
-    await errorHandling(
-      async () => {
+    await errorHandling(async () => {
       const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_SEARCH_API_KEY;
       const CUSTOM_SEARCH_ENGINE_ID =
         process.env.NEXT_PUBLIC_CUSTOM_SEARCH_ENGINE_ID;
@@ -76,12 +75,13 @@ export default function Vocabulary() {
       const items = response.data.items as customsearch_v1.Schema$Result[];
 
       const imageUrls = items.map((item) => item.link || '');
+
       setImages(imageUrls);
-    })
+    });
   };
 
   const getWordDetails = async () => {
-    try {
+    await errorHandling(async () => {
       const WORDS_API_KEY = process.env.NEXT_PUBLIC_WORDS_API_KEY;
 
       const response = await axios.get(
@@ -96,21 +96,17 @@ export default function Vocabulary() {
 
       const details = response.data;
       setWordDetails(details);
-    } catch (e) {
-      throw new Error(e);
-    }
+    });
   };
 
   const getChatgptText = async () => {
-    try {
+    await errorHandling(async () => {
       setMockChatGPTResponse(
         "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?",
       );
       // const response = await axios.get("/api/openai/", { params: { prompt } });
       // setChatGptAnswer(response.data.data);
-    } catch (e) {
-      throw new Error(e);
-    }
+    });
   };
 
   const convertToSearchQuery = (inputString: string) => {

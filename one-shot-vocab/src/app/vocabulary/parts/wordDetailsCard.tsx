@@ -31,7 +31,7 @@ interface WordDetails {
 
 interface WordDetailsCardProps {
   englishWord: string;
-  wordDetails: WordDetails | null;
+  wordDetails: Maybe<WordDetails>;
 }
 const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
   englishWord,

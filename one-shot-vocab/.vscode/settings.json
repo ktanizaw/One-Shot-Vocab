@@ -1,0 +1,8 @@
+{
+  "files.watcherExclude": {
+    "**/__generated__/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true,
+    "**/.next/**": true
+  }
+}

@@ -70,7 +70,6 @@ export default function Vocabulary() {
       );
 
       const items = response.data.items as customsearch_v1.Schema$Result[];
-      console.log('customsearch', items);
 
       const imageUrls = items.map((item) => item.link || '');
       setImages(imageUrls);
@@ -92,7 +91,6 @@ export default function Vocabulary() {
           },
         },
       );
-      console.log('wordsAPI', response);
 
       const details = response.data;
       setWordDetails(details);
@@ -108,23 +106,10 @@ export default function Vocabulary() {
       );
       // const response = await axios.get("/api/openai/", { params: { prompt } });
       // setChatGptAnswer(response.data.data);
-      // console.info("OpenAI Text Generation Response:", response.data.data);
     } catch (error) {
       console.error('OpenAI Text Generation Error:', error);
     }
   };
-
-  // const getPlayPhraseMe = async () => {
-  //   const query = convertToSearchQuery(englishWord);
-  //   try {
-  //     const response = await axios.get(
-  //       `https://www.playphrase.me/api/v1/phrases/search?q=${query}`,
-  //     );
-  //     console.log(response);
-  //   } catch (e) {
-  //     console.error('OpenAI Text Generation Error:', e);
-  //   }
-  // };
 
   const convertToSearchQuery = (inputString: string) => {
     const convertedString = inputString.replace(/ /g, '+');

@@ -11,6 +11,7 @@ import {
   HStack,
   Center,
   Button,
+  useToast,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import axios from 'axios';
@@ -30,6 +31,7 @@ export default function Vocabulary() {
   const [prompt, setPrompt] = useState('');
   const isDisabled = !profession || !englishWord || !englishLevel;
   const [isShowPlayPhraseButton, setIsShowPlayPhraseButton] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     const initialPrompt = `You are a ${profession}.\nGive me 5 affirmative sentences and 5 question sentences with a vocabulary "${englishWord}" within 10 words in English, by only using vocabularies up to ${englishLevel} level.`;
@@ -73,8 +75,8 @@ export default function Vocabulary() {
 
       const imageUrls = items.map((item) => item.link || '');
       setImages(imageUrls);
-    } catch (error) {
-      console.error('error', error);
+    } catch (e) {
+      throw new Error(e);
     }
   };
 
@@ -94,8 +96,8 @@ export default function Vocabulary() {
 
       const details = response.data;
       setWordDetails(details);
-    } catch (error) {
-      console.error('error', error);
+    } catch (e) {
+      throw new Error(e);
     }
   };
 
@@ -106,14 +108,13 @@ export default function Vocabulary() {
       );
       // const response = await axios.get("/api/openai/", { params: { prompt } });
       // setChatGptAnswer(response.data.data);
-    } catch (error) {
-      console.error('OpenAI Text Generation Error:', error);
+    } catch (e) {
+      throw new Error(e);
     }
   };
 
   const convertToSearchQuery = (inputString: string) => {
-    const convertedString = inputString.replace(/ /g, '+');
-    return convertedString;
+    return inputString.replace(/ /g, '+');
   };
 
   const toPlayPhraseMe = () => {

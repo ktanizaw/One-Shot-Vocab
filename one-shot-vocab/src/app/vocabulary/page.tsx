@@ -11,7 +11,6 @@ import {
   HStack,
   Center,
   Button,
-  useToast,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import axios from 'axios';
@@ -32,7 +31,6 @@ export default function Vocabulary() {
   const [prompt, setPrompt] = useState('');
   const isDisabled = !profession || !englishWord || !englishLevel;
   const [isShowPlayPhraseButton, setIsShowPlayPhraseButton] = useState(false);
-  const toast = useToast();
 
   useEffect(() => {
     const initialPrompt = `You are a ${profession}.\nGive me 5 affirmative sentences and 5 question sentences with a vocabulary "${englishWord}" within 10 words in English, by only using vocabularies up to ${englishLevel} level.`;
@@ -69,7 +67,7 @@ export default function Vocabulary() {
         process.env.NEXT_PUBLIC_CUSTOM_SEARCH_ENGINE_ID;
 
       const response = await axios.get(
-        `httaaaps://www.googleapis.com/customsearch/v1?q=${englishWord}&cx=${CUSTOM_SEARCH_ENGINE_ID}&key=${API_KEY}&searchType=image`,
+        `https://www.googleapis.com/customsearch/v1?q=${englishWord}&cx=${CUSTOM_SEARCH_ENGINE_ID}&key=${API_KEY}&searchType=image`,
       );
 
       const items = response.data.items as customsearch_v1.Schema$Result[];
@@ -101,11 +99,11 @@ export default function Vocabulary() {
 
   const getChatgptText = async () => {
     await errorHandling(async () => {
-      setMockChatGPTResponse(
-        "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?",
-      );
-      // const response = await axios.get("/api/openai/", { params: { prompt } });
-      // setChatGptAnswer(response.data.data);
+      // setMockChatGPTResponse(
+      //   "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?",
+      // );
+      const response = await axios.get("/api/openai/", { params: { prompt } });
+      setChatGptAnswer(response.data.data);
     });
   };
 

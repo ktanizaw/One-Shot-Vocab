@@ -11,6 +11,7 @@ import {
   HStack,
   Center,
   Button,
+  Text,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import axios from 'axios';
@@ -99,11 +100,11 @@ export default function Vocabulary() {
 
   const getChatgptText = async () => {
     await errorHandling(async () => {
-      // setMockChatGPTResponse(
-      //   "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?",
-      // );
-      const response = await axios.get("/api/openai/", { params: { prompt } });
-      setChatGptAnswer(response.data.data);
+      setMockChatGPTResponse(
+        "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?",
+      );
+      // const response = await axios.get("/api/openai/", { params: { prompt } });
+      // setChatGptAnswer(response.data.data);
     });
   };
 
@@ -168,12 +169,17 @@ export default function Vocabulary() {
         {isShowPlayPhraseButton && (
           <Center p={4}>
             <Button
+              maxWidth="380px"
+              h="60px"
               rightIcon={<ExternalLinkIcon />}
               colorScheme="blue"
               variant="outline"
               onClick={toPlayPhraseMe}
+              whiteSpace="unset"
             >
-              "{englishWord}"の使い方を動画で確認する
+              <Text overflowWrap="break-word">
+                "{englishWord}"が使われるシーンを確認する
+              </Text>
             </Button>
           </Center>
         )}

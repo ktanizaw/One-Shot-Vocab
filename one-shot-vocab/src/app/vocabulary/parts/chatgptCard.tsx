@@ -30,7 +30,7 @@ const ChatgptCard: React.FC<ChatgptCardProps> = ({ prompt, text }) => {
               <Avatar src="/face.svg" />
             </Box>
             <Box whiteSpace="pre-wrap">
-              <Text>{prompt}</Text>
+              <Text fontSize={{ base: 'sm', md: 'md' }}>{prompt}</Text>
             </Box>
           </HStack>
           <Divider mt={4} mb={4} />
@@ -39,7 +39,7 @@ const ChatgptCard: React.FC<ChatgptCardProps> = ({ prompt, text }) => {
               <Avatar src="/robot.svg" />
             </Box>
             <Box whiteSpace="pre-wrap">
-              <Text>{text}</Text>
+              <Text fontSize={{ base: 'sm', md: 'md' }}>{text}</Text>
             </Box>
           </HStack>
         </Box>

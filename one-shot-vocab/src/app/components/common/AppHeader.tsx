@@ -20,6 +20,8 @@ const AppHeader: React.FC<AppHeaderProps> = ({
     setEnglishLevel(value);
   };
 
+  const englishLevelOptions = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+
   return (
     <HStack
       as="header"
@@ -45,16 +47,14 @@ const AppHeader: React.FC<AppHeaderProps> = ({
           <Select
             value={englishLevel}
             onChange={(e) => handleEnglishLevelChange(e.target.value)}
-            placeholder="Level"
             bg="white"
             boxShadow="base"
           >
-            <option value="A1">A1</option>
-            <option value="A2">A2</option>
-            <option value="B1">B1</option>
-            <option value="B2">B2</option>
-            <option value="C1">C1</option>
-            <option value="C2">C2</option>
+            {englishLevelOptions.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
           </Select>
         </HStack>
       </HStack>
@@ -74,16 +74,14 @@ const AppHeader: React.FC<AppHeaderProps> = ({
           <Select
             value={englishLevel}
             onChange={(e) => handleEnglishLevelChange(e.target.value)}
-            placeholder="Level"
             bg="white"
             boxShadow="base"
           >
-            <option value="A1">A1</option>
-            <option value="A2">A2</option>
-            <option value="B1">B1</option>
-            <option value="B2">B2</option>
-            <option value="C1">C1</option>
-            <option value="C2">C2</option>
+            {englishLevelOptions.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
           </Select>
         </HStack>
       </VStack>

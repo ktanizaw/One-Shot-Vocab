@@ -11,9 +11,14 @@ import {
 interface ChatgptCardProps {
   prompt: string;
   text: string;
+  englishWord: string;
 }
 
-const ChatgptCard: React.FC<ChatgptCardProps> = ({ prompt, text }) => {
+const ChatgptCard: React.FC<ChatgptCardProps> = ({
+  prompt,
+  text,
+  englishWord,
+}) => {
   if (!text) {
     return null;
   }
@@ -22,7 +27,7 @@ const ChatgptCard: React.FC<ChatgptCardProps> = ({ prompt, text }) => {
     <Center p={4}>
       <Box>
         <Tag mb="4" size="lg" key="lg" variant="solid" colorScheme="teal">
-          AI生成例文
+          "{englishWord}"を使った例文
         </Tag>
         <Box maxW={{ base: '100%', md: '800px' }}>
           <HStack spacing={4}>

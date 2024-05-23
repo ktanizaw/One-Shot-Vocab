@@ -12,9 +12,5 @@ const nextConfig = {
     // サーバーサイドで利用する環境変数を設定する
     NEXT_PUBLIC_OPENAI_API_KEY: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   },
-  webpack: (config) => {
-    config.resolve.alias['@'] = path.join(__dirname, 'src');
-    return config;
-  },
 };
 module.exports = nextConfig;

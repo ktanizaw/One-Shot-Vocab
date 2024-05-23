@@ -18,8 +18,8 @@ import axios from 'axios';
 import { customsearch_v1 } from 'googleapis';
 import AppHeader from '@/app/components/common/AppHeader';
 import AppFooter from '@/app/components/common/AppFooter';
-import WordDetailsCard from '@/app/vocabulary/parts/WordDetailsCard';
-import ChatgptCard from '@/app/vocabulary/parts/ChatgptCard';
+import WordDetailsCard from '@/app/vocabulary/WordDetailsCard';
+import ChatgptCard from '@/app/vocabulary/ChatgptCard';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { errorHandling } from '@/app/utils/errorHandling';
 

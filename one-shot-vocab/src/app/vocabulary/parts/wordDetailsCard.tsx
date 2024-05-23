@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Center,
   Divider,
@@ -5,7 +6,6 @@ import {
   Stack,
   HStack,
   VStack,
-  Box,
   Card,
   CardHeader,
   CardBody,
@@ -14,9 +14,8 @@ import {
   WrapItem,
   Button,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 
-interface WordDetails {
+type WordDetails = {
   pronunciation?: {
     all: string;
   };
@@ -29,16 +28,21 @@ interface WordDetails {
     antonyms?: string[];
     derivation?: string[];
   }[];
-}
+};
 
-interface WordDetailsCardProps {
+type WordDetailsCardProps = {
   englishWord: string;
   wordDetails: Maybe<WordDetails>;
-}
+};
 const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
   englishWord,
   wordDetails,
 }) => {
+  const [showAllResults, setShowAllResults] = useState(false);
+  const toggleShowAllResults = () => {
+    setShowAllResults(!showAllResults);
+  };
+
   if (
     !wordDetails ||
     !wordDetails.results ||
@@ -46,11 +50,6 @@ const WordDetailsCard: React.FC<WordDetailsCardProps> = ({
   ) {
     return null;
   }
-
-  const [showAllResults, setShowAllResults] = useState(false);
-  const toggleShowAllResults = () => {
-    setShowAllResults(!showAllResults);
-  };
 
   return (
     <Center p={4}>

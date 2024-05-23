@@ -1,11 +1,11 @@
 import { Text, Input, Select, HStack, VStack } from '@chakra-ui/react';
 
-interface AppHeaderProps {
+type AppHeaderProps = {
   profession: string;
   setProfession: React.Dispatch<React.SetStateAction<string>>;
   englishLevel: string;
   setEnglishLevel: React.Dispatch<React.SetStateAction<string>>;
-}
+};
 
 const AppHeader: React.FC<AppHeaderProps> = ({
   profession,

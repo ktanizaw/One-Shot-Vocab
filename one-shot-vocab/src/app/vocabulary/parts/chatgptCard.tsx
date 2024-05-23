@@ -8,11 +8,11 @@ import {
   Tag,
 } from '@chakra-ui/react';
 
-interface ChatgptCardProps {
+type ChatgptCardProps = {
   prompt: string;
   text: string;
   englishWord: string;
-}
+};
 
 const ChatgptCard: React.FC<ChatgptCardProps> = ({
   prompt,
@@ -27,7 +27,7 @@ const ChatgptCard: React.FC<ChatgptCardProps> = ({
     <Center p={4}>
       <Box>
         <Tag mb="4" size="lg" key="lg" variant="solid" colorScheme="teal">
-          "{englishWord}"を使った例文
+          &quot;{englishWord}&quot;を使った例文
         </Tag>
         <Box maxW={{ base: '100%', md: '800px' }}>
           <HStack spacing={4}>

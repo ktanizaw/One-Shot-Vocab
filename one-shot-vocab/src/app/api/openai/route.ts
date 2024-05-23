@@ -9,11 +9,6 @@ export async function GET(req: NextRequest) {
     }
     const data = await getChatgptAnswer(prompt);
 
-    if (data !== null) {
-      console.log('Received response:', data);
-    } else {
-      console.log('Received empty response from OpenAI');
-    }
     return NextResponse.json({ data });
   } catch (error) {
     console.log('error', error);

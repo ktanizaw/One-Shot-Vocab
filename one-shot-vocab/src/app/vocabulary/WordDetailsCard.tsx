@@ -15,7 +15,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-type WordDetails = {
+export type WordDetails = {
   pronunciation?: {
     all: string;
   };

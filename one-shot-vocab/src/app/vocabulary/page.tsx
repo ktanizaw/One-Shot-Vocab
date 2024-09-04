@@ -22,13 +22,14 @@ import WordDetailsCard from '@/app/vocabulary/WordDetailsCard';
 import ChatgptCard from '@/app/vocabulary/ChatgptCard';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { errorHandling } from '@/app/utils/errorHandling';
+import type { WordDetails } from '@/app/vocabulary/WordDetailsCard';
 
 export default function Vocabulary() {
   const [profession, setProfession] = useState('');
   const [englishLevel, setEnglishLevel] = useState('C2');
   const [englishWord, setEnglishWord] = useState('');
   const [images, setImages] = useState<string[]>([]);
-  const [wordDetails, setWordDetails] = useState<any>(null);
+  const [wordDetails, setWordDetails] = useState<Maybe<WordDetails>>(null);
   const [prompt, setPrompt] = useState('');
   const isDisabled = !profession || !englishWord || !englishLevel;
   const [isShowPlayPhraseButton, setIsShowPlayPhraseButton] = useState(false);

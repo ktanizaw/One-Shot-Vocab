@@ -16,6 +16,7 @@
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@types/firebase": "^2.4.32",
     "axios": "^1.6.1",
     "consola": "^3.2.3",
     "firebase": "^11.0.2",

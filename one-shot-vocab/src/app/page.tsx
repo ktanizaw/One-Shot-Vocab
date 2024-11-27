@@ -1,95 +1,85 @@
+'use client';
+
+import { Box, Button, Input, VStack, Text, Center } from '@chakra-ui/react';
+import HiroLogo from '@/app/assets/images/Hiro.png';
+import OneShotLogo from '@/app/assets/images/one-shot.png';
 import Image from 'next/image';
-import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <Box p={4} maxW="1000px" mx="auto" mb={10}>
+      <Center>
+        <Image src={OneShotLogo} alt="one-shot-logo" width={150} height={150} />
+      </Center>
+      <Center>
+        <Image src={HiroLogo} alt="Hiro" width={150} height={150} />
+      </Center>
+      <Text fontWeight="bold">One-Shot Vocabへようこそ！</Text>
+      <Text mt={6}>本サービスは、</Text>
+      <div className="bold">
+        ・日本語での仕事上のコミュニケーションを英語でもできるようになりたい
+        <br />
+        ・外資系企業に就職/転職したい
+        <br />
+        ・海外キャリアを目指したい
+        <br />
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <Text mt={2}>
+        という夢を追いかけている方をサポートすることを目的とした、英語ボキャブラリー学習特化型ツールです。
+      </Text>
+      <Text>
+        一般的な英単語帳とは異なり、AIプロンプトを活用して「あなたが実際に現場で使用するボキャブラリー」に焦点をあて、1語ずつ多角度から学習できる設計になっています。
+      </Text>
+      <Text mt={4}>
+        <Text as="span" fontWeight="bold">
+          １．{' '}
+        </Text>
+        あなたの現在の英語レベルに基づき、
+        「全職種必須ボキャブラリー」+「あなた自身の職業に応じて個別生成されたボキャブラリー」をリスト化して学習/復習が可能な
+        <Text as="span" color="red" fontWeight="bold">
+          ”リスト機能”
+        </Text>
+      </Text>
+      <Text>
+        <Text as="span" fontWeight="bold">
+          ２．{' '}
+        </Text>
+        普段の生活の中で気になった単語を能動的に検索し、そのままシームレスに学習できる
+        <Text as="span" color="red" fontWeight="bold">
+          ”サーチ機能”
+        </Text>
+      </Text>
+      <div>の2機能で構成されています。</div>
+      <Text mt={6}>
+        One-Shot Vocab One-Shot Vocab に初めてご登録いただいた方は、
+        <Text as="span" color="red" fontWeight="bold">
+          ”リスト機能”
+        </Text>
+        2セッション分、または
+        <Text as="span" color="red" fontWeight="bold">
+          ”サーチ機能”
+        </Text>
+        5回分の学習を無料でご体験いただけます。
+      </Text>
+      <div>
+        無料ご利用枠終了後は、月額500円にてこれらの機能を無制限でご利用いただけます。
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <VStack spacing={4} maxW="600px" mx="auto" mt={10}>
+        <Button w="full" colorScheme="blue" variant="outline">
+          Continue with Google
+        </Button>
+        <Input placeholder="メールアドレス" />
+        <Input placeholder="パスワード" type="password" />
+        <Text mt={6}>アカウントをお持ちでない方は</Text>
+        <Button w="full" colorScheme="teal">
+          新規登録
+        </Button>
+      </VStack>
+      <style jsx>{`
+        .bold {
+          font-weight: bold;
+        }
+      `}</style>
+    </Box>
   );
 }

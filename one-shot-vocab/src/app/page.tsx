@@ -8,12 +8,17 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/app/lib/firebaseConfig';
+import { useAuth } from '@/app/contexts/AuthContext';
 
 export default function Home() {
   const router = useRouter();
   const toRegister = () => {
     router.push('/register');
   };
+  const toSearch = () => {
+    router.push('/search');
+  };
+  const { currentUser } = useAuth();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -28,10 +33,15 @@ export default function Home() {
         password,
       );
       console.log('ログイン成功:', userCredential.user);
+      toSearch();
     } catch (err: any) {
       setError(err.message || 'ログインに失敗しました');
     }
   };
+
+  if (currentUser) {
+    console.log('Current User:', currentUser);
+  }
 
   return (
     <Box p={4} maxW="1000px" mx="auto" mb={10}>

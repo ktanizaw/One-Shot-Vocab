@@ -18,13 +18,13 @@ import axios from 'axios';
 import { customsearch_v1 } from 'googleapis';
 import AppHeader from '@/app/components/common/AppHeader';
 import AppFooter from '@/app/components/common/AppFooter';
-import WordDetailsCard from '@/app/vocabulary/WordDetailsCard';
-import ChatgptCard from '@/app/vocabulary/ChatgptCard';
+import WordDetailsCard from '@/app/search/WordDetailsCard';
+import ChatgptCard from '@/app/search/ChatgptCard';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { errorHandling } from '@/app/utils/errorHandling';
-import type { WordDetails } from '@/app/vocabulary/WordDetailsCard';
+import type { WordDetails } from '@/app/search/WordDetailsCard';
 
-export default function Vocabulary() {
+export default function Search() {
   const [profession, setProfession] = useState('');
   const [englishLevel, setEnglishLevel] = useState('C2');
   const [englishWord, setEnglishWord] = useState('');

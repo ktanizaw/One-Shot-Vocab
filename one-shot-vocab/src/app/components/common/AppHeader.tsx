@@ -1,5 +1,4 @@
 import { Avatar, Text, Input, Select, HStack, VStack } from '@chakra-ui/react';
-import { useAuth } from '@/app/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 
 type AppHeaderProps = {
@@ -32,7 +31,6 @@ const AppHeader: React.FC<AppHeaderProps> = ({
     <HStack
       as="header"
       h={{ base: 32, md: 20 }}
-      justify="space-between"
       borderBottom="1px"
       borderColor="gray.200"
       bg="blue.100"
@@ -77,8 +75,8 @@ const AppHeader: React.FC<AppHeaderProps> = ({
         mr="10"
         onClick={toAccount}
       />
-      <HStack marginX="auto">
-        <VStack align="stretch" display={{ base: 'flex', md: 'none' }}>
+      <HStack marginX="auto" display={{ base: 'flex', md: 'none' }}>
+        <VStack align="stretch">
           <HStack>
             <Text as="b">Profession:</Text>
             <Input
@@ -110,6 +108,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({
           cursor="pointer"
           size="sm"
           onClick={toAccount}
+          display={{ base: 'flex', md: 'none' }}
         />
       </HStack>
     </HStack>

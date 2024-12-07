@@ -5,6 +5,7 @@ import { Box, Button, Input, VStack, Text } from '@chakra-ui/react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/lib/firebaseConfig';
+import { useRouter } from 'next/navigation';
 
 interface User {
   firebase_uid: string;
@@ -20,6 +21,10 @@ const Register = () => {
   const [password, setPassword] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+  const toSearch = () => {
+    router.push('/search');
+  };
 
   const handleRegister = async (): Promise<void> => {
     setError(null);
@@ -42,6 +47,7 @@ const Register = () => {
       };
 
       await setDoc(doc(db, 'users', user.uid), newUser);
+      toSearch();
       console.log('登録成功:', user);
     } catch (err: any) {
       setError(err.message || '登録に失敗しました');

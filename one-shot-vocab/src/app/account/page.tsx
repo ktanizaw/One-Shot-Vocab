@@ -86,7 +86,7 @@ const AccountPage = () => {
         <Input
           placeholder="メールアドレス"
           value={email}
-          isReadOnly // Emailは通常変更不可にすることが多い
+          isReadOnly
         />
         <Button w="full" colorScheme="blue" onClick={handleUpdate}>
           更新

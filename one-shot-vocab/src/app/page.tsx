@@ -128,6 +128,10 @@ export default function Home() {
         <Button w="full" colorScheme="teal" onClick={toRegister}>
           新規登録
         </Button>
+        <Text mt={6}>
+          本サービスではGoogle画像検索、Chat
+          GPTによる画像生成、PlayPhraseMeによる映像再生機能が含まれており、キーワードの選択によってはユーザーが好まない、もしくは意図しない画像の生成、動画の再生がされる可能性があります。予めご了承ください。
+        </Text>
       </VStack>
       <style jsx>{`
         .bold {

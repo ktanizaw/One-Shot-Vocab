@@ -23,8 +23,12 @@ import ChatgptCard from '@/app/search/ChatgptCard';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { errorHandling } from '@/app/utils/errorHandling';
 import type { WordDetails } from '@/app/search/WordDetailsCard';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '@/app/lib/firebaseConfig';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 export default function Search() {
+  const [user, loading] = useAuthState(auth);
   const [profession, setProfession] = useState('');
   const [englishLevel, setEnglishLevel] = useState('C2');
   const [englishWord, setEnglishWord] = useState('');
@@ -38,6 +42,24 @@ export default function Search() {
     const initialPrompt = `You are a ${profession}.\nGive me 5 affirmative sentences and 5 question sentences with a vocabulary "${englishWord}" within 10 words in English, by only using vocabularies up to ${englishLevel} level.`;
     setPrompt(initialPrompt);
   }, [profession, englishWord, englishLevel]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user) {
+        const docRef = doc(db, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          setProfession(userData.profession || '');
+          setEnglishLevel(userData.englishLevel || 'C2');
+        } else {
+          console.error('ユーザーデータが見つかりません');
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
 
   const [chatGptAnswer, setChatGptAnswer] = useState('');
   const [mockChatGPTResponse, setMockChatGPTResponse] = useState('');

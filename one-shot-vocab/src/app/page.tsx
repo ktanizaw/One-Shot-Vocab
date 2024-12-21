@@ -105,6 +105,9 @@ export default function Home() {
         <Button w="full" colorScheme="blue" variant="outline">
           Continue with Google
         </Button>
+        <Text mt={2} fontSize={14}>
+          または
+        </Text>
         <Input
           placeholder="メールアドレス"
           value={email}
@@ -122,7 +125,7 @@ export default function Home() {
         />
         {error && <Text color="red.500">{error}</Text>}
         <Button w="full" colorScheme="blue" onClick={handleLogin}>
-          ログイン
+          メールアドレスでログイン
         </Button>
         <Text mt={6}>アカウントをお持ちでない方は</Text>
         <Button w="full" colorScheme="teal" onClick={toRegister}>

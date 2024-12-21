@@ -103,6 +103,40 @@ export default function Home() {
       <Text>
         一般的な英単語帳とは異なり、AIプロンプトを活用して「あなたが実際に現場で使用するボキャブラリー」に焦点をあて、1語ずつ多角度から学習できる設計になっています。
       </Text>
+      <Text mt={4}>
+        <Text as="span" fontWeight="bold">
+          １．{' '}
+        </Text>
+        あなたの現在の英語レベルに基づき、
+        「全職種必須ボキャブラリー」+「あなた自身の職業に応じて個別生成されたボキャブラリー」をリスト化して学習/復習が可能な
+        <Text as="span" color="red" fontWeight="bold">
+          ”リスト機能”
+        </Text>
+      </Text>
+      <Text>
+        <Text as="span" fontWeight="bold">
+          ２．{' '}
+        </Text>
+        普段の生活の中で気になった単語を能動的に検索し、そのままシームレスに学習できる
+        <Text as="span" color="red" fontWeight="bold">
+          ”サーチ機能”
+        </Text>
+      </Text>
+      <div>の2機能で構成されています。</div>
+      <Text mt={6}>
+        One-Shot Vocab One-Shot Vocab に初めてご登録いただいた方は、
+        <Text as="span" color="red" fontWeight="bold">
+          ”リスト機能”
+        </Text>
+        2セッション分、または
+        <Text as="span" color="red" fontWeight="bold">
+          ”サーチ機能”
+        </Text>
+        5回分の学習を無料でご体験いただけます。
+      </Text>
+      <div>
+        無料ご利用枠終了後は、月額500円にてこれらの機能を無制限でご利用いただけます。
+      </div>
       <VStack spacing={4} maxW="600px" mx="auto" mt={10}>
         {/* Google認証ボタン */}
         <Button

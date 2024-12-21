@@ -1,26 +1,16 @@
 'use client';
 
 import { useState, ChangeEvent } from 'react';
-import {
-  Box,
-  Button,
-  Input,
-  VStack,
-  Text,
-  Select,
-  Center,
-  Tooltip,
-  HStack,
-  Icon,
-} from '@chakra-ui/react';
+import { Box, Button, Input, VStack, Text, Center } from '@chakra-ui/react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/lib/firebaseConfig';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import HiroLogo from '@/app/assets/images/Hiro.png';
 import OneShotLogo from '@/app/assets/images/one-shot.png';
-import { InfoOutlineIcon } from '@chakra-ui/icons';
+import { useRouter, useSearchParams } from 'next/navigation';
+import ProfessionInput from '@/app/components/common/ProfessionInput';
+import EnglishLevelSelect from '@/app/components/common/EnglishLevelSelect';
 
 interface User {
   firebase_uid: string;
@@ -34,13 +24,16 @@ interface User {
 }
 
 const Register = () => {
-  const [email, setEmail] = useState<string>('');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [name, setName] = useState<string>(searchParams.get('name') || '');
+  const [email, setEmail] = useState<string>(searchParams.get('email') || '');
   const [password, setPassword] = useState<string>('');
-  const [name, setName] = useState<string>('');
   const [profession, setProfession] = useState<string>('');
   const [englishLevel, setEnglishLevel] = useState<string>('C2');
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+
   const toSearch = () => {
     router.push('/search');
   };
@@ -97,66 +90,15 @@ const Register = () => {
           <br />
           入力内容に基づいてボキャブラリーリストが生成されます。
         </Text>
-        <HStack width="400px">
-          <Input
-            placeholder="職業"
-            value={profession}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setProfession(e.target.value)
-            }
-          />
-          <Tooltip
-            label={
-              <>
-                以下の例のようにご自身の職業を英語で具体的に記載してください：
-                <ul>
-                  <li>例）</li>
-                  <li>Software Engineer for health app project</li>
-                  <li>Marketing manager at internet service provider</li>
-                  <li>Sales manager for air conditioning system</li>
-                  <li>Product manager at travel agency</li>
-                </ul>
-              </>
-            }
-            placement="right"
-            hasArrow
-          >
-            <Icon as={InfoOutlineIcon} />
-          </Tooltip>
-        </HStack>
-        <HStack w="400px">
-          <Select
-            placeholder="英語レベルを選択"
-            value={englishLevel}
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              setEnglishLevel(e.target.value)
-            }
-          >
-            <option value="A1">A1</option>
-            <option value="A2">A2</option>
-            <option value="B1">B1</option>
-            <option value="B2">B2</option>
-            <option value="C1">C1</option>
-            <option value="C2">C2</option>
-          </Select>
-          <Tooltip
-            label={
-              <>
-                英語レベルは以下のスコアを目安に選択してください：
-                <ul>
-                  <li>A2: 英検準2級 / TOEIC L&R ~550点</li>
-                  <li>B1: 英検2級 / TOEFL iBT ~71点 / TOEIC L&R ~785点</li>
-                  <li>B2: 英検準1級 / TOEFL iBT ~94点 / TOEIC L&R ~945点</li>
-                  <li>C1: 英検1級 / TOEFL iBT ~120点 / TOEIC L&R ~990点</li>
-                </ul>
-              </>
-            }
-            placement="right"
-            hasArrow
-          >
-            <Icon as={InfoOutlineIcon} />
-          </Tooltip>
-        </HStack>
+        <ProfessionInput
+          profession={profession}
+          setProfession={setProfession}
+        />
+
+        <EnglishLevelSelect
+          englishLevel={englishLevel}
+          setEnglishLevel={setEnglishLevel}
+        />
 
         <Input
           w="400px"

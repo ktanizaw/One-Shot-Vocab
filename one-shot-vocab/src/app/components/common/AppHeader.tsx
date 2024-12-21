@@ -33,6 +33,9 @@ const AppHeader: React.FC<AppHeaderProps> = ({
   const toPayment = () => {
     router.push('/payment');
   };
+  const toLogout = () => {
+    router.push('/logout');
+  };
   const handleProfessionChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setProfession(event.target.value);
 
@@ -135,6 +138,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({
           <MenuList>
             <MenuItem onClick={toAccount}>ユーザー情報</MenuItem>
             <MenuItem onClick={toPayment}>お支払い情報</MenuItem>
+            <MenuItem onClick={toLogout}>ログアウト</MenuItem>
           </MenuList>
         </Menu>
       </HStack>

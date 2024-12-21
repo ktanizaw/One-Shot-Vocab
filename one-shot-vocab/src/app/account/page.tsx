@@ -108,7 +108,7 @@ const AccountPage = () => {
   return (
     <Box p={4} maxW="1000px" mx="auto">
       <Text fontSize="2xl" mb={4} textAlign="center">
-        アカウント情報
+        ユーザー情報
       </Text>
       <form onSubmit={handleUpdate}>
         <VStack spacing={4} w="400px" mx="auto">

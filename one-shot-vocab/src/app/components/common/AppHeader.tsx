@@ -1,4 +1,16 @@
-import { Avatar, Text, Input, Select, HStack, VStack } from '@chakra-ui/react';
+import {
+  Text,
+  Input,
+  Select,
+  HStack,
+  VStack,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/navigation';
 
 type AppHeaderProps = {
@@ -17,6 +29,9 @@ const AppHeader: React.FC<AppHeaderProps> = ({
   const router = useRouter();
   const toAccount = () => {
     router.push('/account');
+  };
+  const toPayment = () => {
+    router.push('/payment');
   };
   const handleProfessionChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setProfession(event.target.value);
@@ -67,14 +82,20 @@ const AppHeader: React.FC<AppHeaderProps> = ({
           </Select>
         </HStack>
       </HStack>
-      <Avatar
-        display={{ base: 'none', md: 'flex' }}
-        src="https://bit.ly/broken-link"
-        cursor="pointer"
-        size="sm"
-        mr="10"
-        onClick={toAccount}
-      />
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<HamburgerIcon />}
+          variant="outline"
+          size="sm"
+          mr="10"
+        />
+        <MenuList>
+          <MenuItem onClick={toAccount}>ユーザー情報</MenuItem>
+          <MenuItem onClick={toPayment}>お支払い情報</MenuItem>
+        </MenuList>
+      </Menu>
       <HStack marginX="auto" display={{ base: 'flex', md: 'none' }}>
         <VStack align="stretch">
           <HStack>
@@ -103,13 +124,19 @@ const AppHeader: React.FC<AppHeaderProps> = ({
             </Select>
           </HStack>
         </VStack>
-        <Avatar
-          src="https://bit.ly/broken-link"
-          cursor="pointer"
-          size="sm"
-          onClick={toAccount}
-          display={{ base: 'flex', md: 'none' }}
-        />
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label="Options"
+            icon={<HamburgerIcon />}
+            variant="outline"
+            size="sm"
+          />
+          <MenuList>
+            <MenuItem onClick={toAccount}>ユーザー情報</MenuItem>
+            <MenuItem onClick={toPayment}>お支払い情報</MenuItem>
+          </MenuList>
+        </Menu>
       </HStack>
     </HStack>
   );

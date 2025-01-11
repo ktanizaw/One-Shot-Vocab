@@ -12,6 +12,7 @@ import {
   Center,
   Button,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import axios from 'axios';
@@ -61,6 +62,13 @@ export default function Search() {
     fetchUserData();
   }, [user]);
 
+  const [chatGptImages, setChatGptImages] = useState<
+    { url: string; text: string }[]
+  >([]);
+  const [mockChatGptImages, setMockChatGptImages] = useState<
+    { url: string; text: string }[]
+  >([]);
+
   const [chatGptAnswer, setChatGptAnswer] = useState('');
   const [mockChatGPTResponse, setMockChatGPTResponse] = useState('');
 
@@ -78,10 +86,54 @@ export default function Search() {
   };
 
   const searchEnglishWord = async () => {
+    await getChatgptImages();
     await getImages();
     await getWordDetails();
     await getChatgptText();
     setIsShowPlayPhraseButton(true);
+  };
+
+  const getChatgptImages = async () => {
+    setMockChatGptImages([
+      {
+        url: 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg',
+        text: 'test sentence test sentence test sentence test sentence test sentence.',
+      },
+      {
+        url: 'https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg',
+        text: 'test sentence test sentence test sentence test sentence test sentence.',
+      },
+    ]);
+    // TODO：英語レベルがA1かA2の場合は和訳をつける実装
+    // const prompt =
+    //   englishLevel === 'A1' || englishLevel === 'A2'
+    //     ? `Give me 2 simple English example phrases using a vocabulary "${englishWord}" and also translate the example phrases to Japanese.`
+    //     : `Give me 2 simple English example phrases using a vocabulary "${englishWord}"`;
+
+    // const prompt = `Give me 2 simple English example phrases using a vocabulary "${englishWord}"`;
+
+    // await errorHandling(async () => {
+    //   const response = await axios.get('/api/openai/', { params: { prompt } });
+
+    //   const imagePrompt = `Please generate one image for each of the following sentences: ${response.data.data}`;
+
+    //   const imageResponse = await axios.get('/api/dalle/', {
+    //     params: { imagePrompt },
+    //   });
+
+    //   const sentences = response.data.data
+    //     .split('\n')
+    //     .filter((sentence: string) => sentence.trim() !== '');
+
+    //   const chatGptImages = sentences.map((sentence: string, index: number) => {
+    //     return {
+    //       url: imageResponse.data.data[index].url,
+    //       text: sentence,
+    //     };
+    //   });
+
+    //   setChatGptImages(chatGptImages);
+    // });
   };
 
   const getImages = async () => {
@@ -123,11 +175,11 @@ export default function Search() {
 
   const getChatgptText = async () => {
     await errorHandling(async () => {
-      // setMockChatGPTResponse(
-      //   "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?",
-      // );
-      const response = await axios.get('/api/openai/', { params: { prompt } });
-      setChatGptAnswer(response.data.data);
+      setMockChatGPTResponse(
+        "Affirmative sentences:\n1. Let's simplify the user interface to improve the user experience.\n2. We were able to simplify the code by removing unnecessary functions.\n3. The new algorithm simplified the complex mathematical calculations.\n4. Simplifying the login process will make it easier for users.\n5. We simplified the data structure to enhance system performance.\n\nQuestion sentences:\n1. Can you simplify this code to make it more efficient?\n2. Could you explain how this feature simplifies the workflow?\n3. How can we simplify the data entry process for users?\n4. Can you provide some tips to simplify the software deployment?\n5. In what ways can we simplify the user interface design?",
+      );
+      // const response = await axios.get('/api/openai/', { params: { prompt } });
+      // setChatGptAnswer(response.data.data);
     });
   };
 
@@ -166,6 +218,23 @@ export default function Search() {
               onClick={searchEnglishWord}
             />
           </HStack>
+        </Center>
+
+        <Center p={4}>
+          <Wrap w={1280} justify="center" spacingX={20}>
+            {mockChatGptImages.map((item, index) => (
+              <WrapItem key={index} w={250}>
+                <VStack>
+                  <img
+                    src={item.url}
+                    alt={`ai-image ${index}`}
+                    className={styles.aiImage}
+                  />
+                  <Box>{item.text}</Box>
+                </VStack>
+              </WrapItem>
+            ))}
+          </Wrap>
         </Center>
 
         <Center p={4}>

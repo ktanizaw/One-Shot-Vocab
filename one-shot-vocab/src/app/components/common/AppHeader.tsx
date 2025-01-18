@@ -43,7 +43,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({
     setEnglishLevel(value);
   };
 
-  const englishLevelOptions = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+  const englishLevelOptions = ['A2', 'B1', 'B2', 'C1'];
 
   return (
     <HStack

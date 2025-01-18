@@ -31,7 +31,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 export default function Search() {
   const [user, loading] = useAuthState(auth);
   const [profession, setProfession] = useState('');
-  const [englishLevel, setEnglishLevel] = useState('C2');
+  const [englishLevel, setEnglishLevel] = useState('A2');
   const [englishWord, setEnglishWord] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const [wordDetails, setWordDetails] = useState<Maybe<WordDetails>>(null);
@@ -52,7 +52,7 @@ export default function Search() {
         if (docSnap.exists()) {
           const userData = docSnap.data();
           setProfession(userData.profession || '');
-          setEnglishLevel(userData.englishLevel || 'C2');
+          setEnglishLevel(userData.englishLevel || 'A2');
         } else {
           console.error('ユーザーデータが見つかりません');
         }
@@ -104,13 +104,10 @@ export default function Search() {
         text: 'test sentence test sentence test sentence test sentence test sentence.',
       },
     ]);
-    // TODO：英語レベルがA1かA2の場合は和訳をつける実装
     // const prompt =
-    //   englishLevel === 'A1' || englishLevel === 'A2'
+    //   englishLevel === 'A2' || englishLevel === 'B1'
     //     ? `Give me 2 simple English example phrases using a vocabulary "${englishWord}" and also translate the example phrases to Japanese.`
-    //     : `Give me 2 simple English example phrases using a vocabulary "${englishWord}"`;
-
-    // const prompt = `Give me 2 simple English example phrases using a vocabulary "${englishWord}"`;
+    //     : `Give me 2 simple English example phrases using a vocabulary "${englishWord}".`;
 
     // await errorHandling(async () => {
     //   const response = await axios.get('/api/openai/', { params: { prompt } });
@@ -122,8 +119,8 @@ export default function Search() {
     //   });
 
     //   const sentences = response.data.data
-    //     .split('\n')
-    //     .filter((sentence: string) => sentence.trim() !== '');
+    //     .split(/(?=\d\.)/)
+    //     .map((sentence: string) => sentence.trim().replace(/^(\d+\.)\s*/, ''));
 
     //   const chatGptImages = sentences.map((sentence: string, index: number) => {
     //     return {
@@ -230,7 +227,7 @@ export default function Search() {
                     alt={`ai-image ${index}`}
                     className={styles.aiImage}
                   />
-                  <Box>{item.text}</Box>
+                  <Box whiteSpace="pre-wrap">{item.text}</Box>
                 </VStack>
               </WrapItem>
             ))}
